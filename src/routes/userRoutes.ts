@@ -1,6 +1,8 @@
 import {Router} from 'express';
-const router = Router();
+import { PrismaClient } from '@prisma/client'
 
+const router = Router();
+const prisma = new PrismaClient();
 
 //User CRUD
 
@@ -21,9 +23,20 @@ router.get('/:id', (req, res)=> {
 })
 
 //update user
-router.put('/:id', (req, res)=>{
+router.put('/:id', async (req, res)=>{
     const {id} = req.params;
-    res.status(501).json({error: `Put not implemented for ${id}`});
+    const {bio, name, image} = req.body;
+    try{
+        const result = await prisma.user.update({
+            where: {
+                id: Number(id)
+            },
+            data : { bio, name, image}
+        })
+        res.json(result)
+    }catch(e){
+        res.status(400).json({error: `Failed to update the user`});
+    }
 });
 
 //delete user
