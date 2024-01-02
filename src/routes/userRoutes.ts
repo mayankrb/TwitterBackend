@@ -26,23 +26,25 @@ router.get('/:id', (req, res)=> {
 router.put('/:id', async (req, res)=>{
     const {id} = req.params;
     const {bio, name, image} = req.body;
+    console.log(`${bio}, ${name}, ${image}`)
     try{
         const result = await prisma.user.update({
             where: {
                 id: Number(id)
             },
             data : { bio, name, image}
-        })
-        res.json(result)
+        });
+        res.json(result);
     }catch(e){
         res.status(400).json({error: `Failed to update the user`});
     }
 });
 
 //delete user
-router.delete('/:id', (req, res)=>{
+router.delete('/:id', async(req, res)=>{
     const {id} = req.params;
-    res.status(501).json({error: `Delete not implemented for ${id}`});
+    await prisma.user.delete({where: {id: Number(id)}});
+    res.sendStatus(200);
 });
 
 export default router;
