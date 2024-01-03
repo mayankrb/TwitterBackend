@@ -11,15 +11,15 @@ app.get('/', (req, res) => {
     res.send('Hello World is running in dev mode');
 });
 //app.method(PATH, HANDLER)
-app.get('/post', (req, res) => {
-    res.send('Get post is running in dev mode');
-});
-app.post('/post', (req, res)=>{
-    res.send("In the post method");
-});
-app.delete('/delete', (req, res)=>{
-    res.send("In the delete method");
-});
+// app.get('/post', (req, res) => {
+//     res.send('Get post is running in dev mode');
+// });
+// app.post('/post', (req, res)=>{
+//     res.send("In the post method");
+// });
+// app.delete('/delete', (req, res)=>{
+//     res.send("In the delete method");
+// });
 
 
 app.listen(3000, ()=>{
